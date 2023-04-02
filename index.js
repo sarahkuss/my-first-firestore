@@ -51,10 +51,20 @@ db.collection('products').doc('RHCCn8BaG7ELsVPq7qml').get()
 
   db.collection('products').get()
     .then(collection => {
-      const productList = collection.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+      const productList = collection.docs.map(doc => ({...doc.data(), id: doc.id}));
       console.table(productList);
     })
     .catch(console.log);
 
   //To delete:
   // db.collection('products').doc('RHCCn8BaG7ELsVPq7qml').delete()
+
+  //const productList = collection.docs.map(doc => doc.data());
+
+  //({...doc.data(), id: doc.id}) 
+
+  // can rewrite this using async... same as lines 52-55
+  const collection = await db.collection('products').get()
+    .catch(console.log);
+  const productList = collection.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+  console.table(productList);
